@@ -9,13 +9,23 @@ class UsuarioController extends Controller
 {
     public function Criar(Request $req)
     {
-      return $req->all();
+      $usuario = new Usuario;
+      $usuario->login = $req->login;
+      $usuario->nome = $req->nome;
+      $usuario->senha = $req->senha;
+      $usuario->email = $req->email;
+      $usuario->save();
     }
 
     
     public function Atualizar(Request $req, $id)
     {
-        return 'VC actualizou'.$id;
+        $usuario = Usuario::findOrFail($id);
+        $usuario->login = $req->login;
+        $usuario->nome = $req->nome;
+        $usuario->senha =$req->senha;
+        $usuario->email = $req->email;
+        $usuario->save();
     }
 
     
@@ -26,12 +36,13 @@ class UsuarioController extends Controller
 
     public function ListarEspecifico($id)
     {
-        return 'Lstou?'.$id;
+        return Usuario::findOrFail($id);
     }
 
     
     public function Excluir($id)
     {
-        return 'Deletou viado'.$id;
+        $usuario = Usuario::findOrFail($id);
+        $usuario->delete();
     }
 }
